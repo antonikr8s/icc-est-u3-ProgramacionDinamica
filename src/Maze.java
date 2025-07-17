@@ -1,12 +1,13 @@
 import java.util.List;
+import java.util.Set;
 
 public class Maze {
     private boolean[][] grid;
-    private int size;
+
     private List<Cell> path;
 
     public Maze(boolean[][] predefinedGrid) {
-        this.size = predefinedGrid.length;
+
         this.grid = predefinedGrid;
     }
 
@@ -21,7 +22,7 @@ public class Maze {
                 if (!grid[i][j]) {
                     System.out.print("* ");
                 } else if (path != null && path.contains(current)) {
-                    System.out.print("o ");
+                    System.out.print("> ");
                 } else {
                     System.out.print("- ");
                 }
@@ -32,6 +33,27 @@ public class Maze {
 
     public boolean[][] getGrid() {
         return grid;
+    }
+
+    public void printMazeWithPath(List<Cell> path) {
+        setPath(path);
+        printMaze();
+    }
+
+    public void printMazeWithVisited(Set<Cell> visited) {
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                Cell cell = new Cell(row, col);
+                if (!grid[row][col]) {
+                    System.out.print("* ");
+                } else if (visited.contains(cell)) {
+                    System.out.print("> ");
+                } else {
+                    System.out.print("- ");
+                }
+            }
+            System.out.println();
+        }
     }
 
 }
